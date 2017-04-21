@@ -136,6 +136,9 @@ function pip_install {
     cmd_pip="$cmd_pip install"
     # Always apply constraints
     cmd_pip="$cmd_pip -c $REQUIREMENTS_DIR/upper-constraints.txt"
+    if [[ -d /usr/local/lib/python2.7/dist-packages/openstack/ ]] ; then
+        sudo sed -i "s/openstack.__version__/openstack/g" /usr/local/lib/python2.7/dist-packages/openstack/session.py
+    fi
 
     # FIXME(dhellmann): Need to force multiple versions of pip for
     # packages like setuptools?
